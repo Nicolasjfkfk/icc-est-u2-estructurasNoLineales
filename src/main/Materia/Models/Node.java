@@ -28,5 +28,5 @@ public Node getRight() {
 public void setRight(Node right) {
     this.right = right;
 }
-   
+
 }
