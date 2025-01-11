@@ -7,31 +7,25 @@ import java.util.Queue;
 
 import main.Materia.Models.Node;
 
-public class ListLevels {
-    public List<List<Integer>> ListLevels(Node root) {
-        // Lista que almacenará los niveles
-        List<List<Integer>> result = new ArrayList<>();
 
-        // Si el árbol está vacío
+public class ListLevels {
+    public List<List<Node>> listLevels(Node root) {
         if (root == null) {
-            return result;
+            return new ArrayList<>(); // Devuelve una lista vacía si el árbol está vacío.
         }
 
-        // Cola para realizar un recorrido por niveles
+        List<List<Node>> result = new ArrayList<>();
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
 
-        // Bucle para recorrer todos los niveles
         while (!queue.isEmpty()) {
-            int levelSize = queue.size(); // Número de nodos en el nivel actual
-            List<Integer> currentLevel = new ArrayList<>(); // Lista para este nivel
+            int levelSize = queue.size(); // Número de nodos en el nivel actual.
+            List<Node> currentLevel = new ArrayList<>();
 
             for (int i = 0; i < levelSize; i++) {
-                // Sacar el nodo de la cola
                 Node currentNode = queue.poll();
-                currentLevel.add(currentNode.getValue());
+                currentLevel.add(currentNode);
 
-                // Agregar los hijos a la cola
                 if (currentNode.getLeft() != null) {
                     queue.add(currentNode.getLeft());
                 }
@@ -40,8 +34,7 @@ public class ListLevels {
                 }
             }
 
-            // Agregar la lista del nivel actual al resultado
-            result.add(currentLevel);
+            result.add(currentLevel); // Agrega el nivel completo a la lista de resultados.
         }
 
         return result;
