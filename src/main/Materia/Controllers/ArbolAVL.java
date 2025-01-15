@@ -6,90 +6,90 @@ public class ArbolAVL {
     private Node root;
 
     public void insert(int value) {
-        System.out.println("\n* Nodo a insertar: " + value);
+        System.out.println("Nodo a insertar: " + value);
         root = insert(root, value);
-        System.out.println("Estructura actual del árbol:");
-        printTreeStructure(root);
+        System.out.println("Nodo insertado " + value + ", Balance: " + getBalance(root));
+        System.out.println("───────");
+        printTree();
     }
 
-    private Node insert(Node nodo, int value) {
-        if (nodo == null) {
+    private Node insert(Node node, int value) {
+        if (node == null) {
             Node newNode = new Node(value);
             newNode.setHeight(1);
-            System.out.println("Nodo insertado: " + value + ", Balance: 0");
             return newNode;
         }
 
-        if (value < nodo.getValue()) {
-            nodo.setLeft(insert(nodo.getLeft(), value));
-        } else if (value > nodo.getValue()) {
-            nodo.setRight(insert(nodo.getRight(), value));
+        if (value < node.getValue()) {
+            node.setLeft(insert(node.getLeft(), value));
+        } else if (value > node.getValue()) {
+            node.setRight(insert(node.getRight(), value));
         } else {
-            return nodo; // No se permiten valores duplicados
+            System.out.println("Duplicado: " + value);
+            return node;
         }
 
-        // Actualizar la altura del nodo actual
-        nodo.setHeight(1 + Math.max(height(nodo.getLeft()), height(nodo.getRight())));
+        node.setHeight(1 + Math.max(height(node.getLeft()), height(node.getRight())));
+        int balance = getBalance(node);
 
-        // Obtener el balance del nodo actual
-        int balance = getBalance(nodo);
+        System.out.println(" -Nodo actual: " + node.getValue());
+        System.out.println("             Altura del nodo: " + node.getValue() + " es = " + node.getHeight());
+        System.out.println("             Equilibrio del nodo: " + node.getValue() + " = " + balance);
 
-        // Caso Izquierda - Izquierda
-        if (balance > 1 && value < nodo.getLeft().getValue()) {
-            System.out.println("Rotación Derecha en nodo: " + nodo.getValue() + ", Balance: " + balance);
-            return rightRotate(nodo);
+        // Rotaciones
+        if (balance > 1 && value < node.getLeft().getValue()) {
+            System.out.println("             Izquierda-Izquierda a nodo " + node.getValue());
+            Node rotatedNode = rigthRotate(node);
+            printTree();
+            return rotatedNode;
+        }
+        if (balance < -1 && value > node.getRight().getValue()) {
+            System.out.println("             Derecha-Derecha a nodo " + node.getValue());
+            Node rotatedNode = leftRotate(node);
+            printTree();
+            return rotatedNode;
+        }
+        if (balance > 1 && value > node.getLeft().getValue()) {
+            System.out.println("             Izquierda-Derecha a nodo " + node.getValue());
+            node.setLeft(leftRotate(node.getLeft()));
+            printTree();
+            Node rotatedNode = rigthRotate(node);
+            printTree();
+            return rotatedNode;
+        }
+        if (balance < -1 && value < node.getRight().getValue()) {
+            System.out.println("             Derecha-Izquierda a nodo " + node.getValue());
+            node.setRight(rigthRotate(node.getRight()));
+            printTree();
+            Node rotatedNode = leftRotate(node);
+            printTree();
+            return rotatedNode;
         }
 
-        // Caso Derecha - Derecha
-        if (balance < -1 && value > nodo.getRight().getValue()) {
-            System.out.println("Rotación Izquierda en nodo: " + nodo.getValue() + ", Balance: " + balance);
-            return leftRotate(nodo);
-        }
-
-        // Caso Izquierda - Derecha
-        if (balance > 1 && value > nodo.getLeft().getValue()) {
-            System.out.println("Rotación Izquierda-Derecha en nodo: " + nodo.getValue());
-            nodo.setLeft(leftRotate(nodo.getLeft()));
-            return rightRotate(nodo);
-        }
-
-        // Caso Derecha - Izquierda
-        if (balance < -1 && value < nodo.getRight().getValue()) {
-            System.out.println("Rotación Derecha-Izquierda en nodo: " + nodo.getValue());
-            nodo.setRight(rightRotate(nodo.getRight()));
-            return leftRotate(nodo);
-        }
-
-        return nodo;
+        return node;
     }
 
-    private Node rightRotate(Node y) {
+    private Node rigthRotate(Node y) {
         Node x = y.getLeft();
         Node temp = x.getRight();
-
-        // Realizar rotación
+        System.out.println("Rotacion Derecha en nodo: " + y.getValue() + ", Balance " + getBalance(y));
         x.setRight(y);
         y.setLeft(temp);
-
-        // Actualizar alturas
-        y.setHeight(1 + Math.max(height(y.getLeft()), height(y.getRight())));
-        x.setHeight(1 + Math.max(height(x.getLeft()), height(x.getRight())));
-
+        y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
+        x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
+        System.out.println("Nueva Raiz despues de rotacion derecha: " + x.getValue());
         return x;
     }
 
     private Node leftRotate(Node x) {
         Node y = x.getRight();
         Node temp = y.getLeft();
-
-        // Realizar rotación
+        System.out.println("Rotacion Izquierda en nodo: " + x.getValue() + ", Balance " + getBalance(x));
         y.setLeft(x);
         x.setRight(temp);
-
-        // Actualizar alturas
-        x.setHeight(1 + Math.max(height(x.getLeft()), height(x.getRight())));
-        y.setHeight(1 + Math.max(height(y.getLeft()), height(y.getRight())));
-
+        x.setHeight(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
+        y.setHeight(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
+        System.out.println("Nueva raiz despues de rotacion izquierda: " + y.getValue());
         return y;
     }
 
@@ -107,17 +107,26 @@ public class ArbolAVL {
         return height(node.getLeft()) - height(node.getRight());
     }
 
-    private void printTreeStructure(Node node) {
-        printSubtree(node, "", true);
+    public void printTree() {
+        printTree(root, " ", true);
     }
 
-    private void printSubtree(Node node, String prefix, boolean isTail) {
-        if (node == null) {
-            System.out.println(prefix + (isTail ? "└── " : "├── ") + "null");
-            return;
+    private void printTree(Node node, String prefix, boolean isLeft) {
+        if (node != null) {
+            System.out.println(prefix + (isLeft ? "├──" : "└──") + node.getValue());
+            if (node.getLeft() != null || node.getRight() != null) {
+                if (node.getLeft() != null) {
+                    printTree(node.getLeft(), prefix + (isLeft ? "│  " : "   "), true);
+                } else {
+                    System.out.println(prefix + (isLeft ? "│  " : "   ") + "├── null");
+                }
+
+                if (node.getRight() != null) {
+                    printTree(node.getRight(), prefix + (isLeft ? "│  " : "   "), false);
+                } else {
+                    System.out.println(prefix + (isLeft ? "│  " : "   ") + "└── null");
+                }
+            }
         }
-        System.out.println(prefix + (isTail ? "└── " : "├── ") + node.getValue());
-        printSubtree(node.getLeft(), prefix + (isTail ? "    " : "│   "), false);
-        printSubtree(node.getRight(), prefix + (isTail ? "    " : "│   "), true);
     }
 }
