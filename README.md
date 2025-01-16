@@ -1,18 +1,67 @@
-## Getting Started
+# Estructuras No Lineales – Ejercicios con Árboles
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Descripción General
+Este proyecto contiene la implementación de cuatro ejercicios relacionados con árboles binarios. Los ejercicios tienen como objetivo mejorar la comprensión de las estructuras de datos no lineales y su manipulación en Java.
 
-## Folder Structure
+### Ejercicio 1: Insertar en un Árbol Binario de Búsqueda (BST)
+Implementa un algoritmo para insertar valores en un BST. El árbol sigue las reglas de un BST: los valores menores están a la izquierda, y los mayores, a la derecha.
+- **Entrada:** [5, 3, 7, 2, 4, 6, 8]
+- **Salida:**
+  ```
+      5
+   3     7
+  2 4   6 8
+  ```
 
-The workspace contains two folders by default, where:
+### Ejercicio 2: Invertir un Árbol Binario
+Invierte un árbol binario dado, cambiando los subárboles izquierdo y derecho en todos los nodos.
+- **Entrada:**
+  ```
+      4
+   2     7
+  1 3   6 9
+  ```
+- **Salida:**
+  ```
+      4
+   7     2
+  9 6   3 1
+  ```
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+### Ejercicio 3: Listar Niveles en Listas Enlazadas
+Devuelve una lista enlazada para cada nivel de un árbol binario.
+- **Entrada:**
+  ```
+      4
+   2     7
+  1 3   6 9
+  ```
+- **Salida:**
+  ```
+  4
+  2 -> 7
+  1 -> 3 -> 6 -> 9
+  ```
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Ejercicio 4: Calcular la Profundidad Máxima
+Calcula la profundidad máxima de un árbol binario.
+- **Entrada:**
+  ```
+      4
+   2     7
+  1 3     8
+  ```
+- **Salida:**
+  Profundidad Máxima: 3  (en el pdf esta de 4 ahi no le entendi)
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Instrucciones de Ejecución
+Compilar y ejecutar el archivo principal `App.java`. Descomenta el método correspondiente al ejercicio que deseas ejecutar:
+   - `runEjercicio1()` para insertar en un BST.
+   - `runEjercicio2()` para invertir un árbol binario.
+   - `runEjercicio3()` para listar niveles.
+   - `runEjercicio4()` para calcular la profundidad máxima.
 
-## Dependency Management
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Conclusión
+Este proyecto permite practicar conceptos fundamentales de árboles binarios, como inserción, recorrido, manipulación y análisis. A través de estos ejercicios, se mejora la comprensión de estructuras de datos no lineales y la implementación eficiente en Java.
+
