@@ -7,19 +7,47 @@ import main.Ejercicio_3_listLevels.ListLevels;
 import main.Ejercicio_04_depth.Depth;
 import main.Materia.Controllers.ArbolBinario;
 import main.Materia.Controllers.ArbolRecorridos;
+import main.Materia.Controllers.Graph;
 import main.Materia.Controllers.ArbolAVL;
 import main.Materia.Models.Node;
+import main.Materia.Models.NodeG;
 
 public class App {
     public static void main(String[] args) {
 
        // runArbolBinario();
        // runArbolAVL();
-        runEjercicio1();
+       // runEjercicio1();
        // runEjercicio2();
        // runEjercicio3();
        // runEjercicio4();
+
+       runGraph();
     }
+
+    private static void runGraph() {
+    Graph grafo = new Graph();
+
+    // Crear nodos
+    NodeG node5 = grafo.addNode(5);
+    NodeG node7 = grafo.addNode(7);
+    NodeG node9 = grafo.addNode(9);
+    NodeG node11 = grafo.addNode(11);
+    NodeG node3 = grafo.addNode(3);
+
+    // Crear conexiones (aristas) según la imagen
+    grafo.addEdge(node5, node7);
+    grafo.addEdge(node5, node3);
+    grafo.addEdge(node5, node9);
+    grafo.addEdge(node7, node9);
+    grafo.addEdge(node3, node11);
+    grafo.addEdge(node3, node9);
+
+    // Imprimir el grafo
+    System.out.println("Grafo:");
+    grafo.printGraph();
+}
+
 
     public static void runArbolBinario(){
         ArbolBinario arbolBinario = new ArbolBinario();
