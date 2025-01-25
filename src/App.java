@@ -21,32 +21,60 @@ public class App {
        // runEjercicio2();
        // runEjercicio3();
        // runEjercicio4();
-
        runGraph();
     }
 
     private static void runGraph() {
-    Graph grafo = new Graph();
-
-    // Crear nodos
-    NodeG node5 = grafo.addNode(5);
-    NodeG node7 = grafo.addNode(7);
-    NodeG node9 = grafo.addNode(9);
-    NodeG node11 = grafo.addNode(11);
-    NodeG node3 = grafo.addNode(3);
-
-    // Crear conexiones (aristas) según la imagen
-    grafo.addEdge(node5, node7);
-    grafo.addEdge(node5, node3);
-    grafo.addEdge(node5, node9);
-    grafo.addEdge(node7, node9);
-    grafo.addEdge(node3, node11);
-    grafo.addEdge(node3, node9);
-
-    // Imprimir el grafo
-    System.out.println("Grafo:");
-    grafo.printGraph();
-}
+        Graph grafoNoDirigido = new Graph();
+    
+        // Crear nodos
+        NodeG node5 = grafoNoDirigido.addNode(5);
+        NodeG node7 = grafoNoDirigido.addNode(7);
+        NodeG node9 = grafoNoDirigido.addNode(9);
+        NodeG node11 = grafoNoDirigido.addNode(11);
+        NodeG node3 = grafoNoDirigido.addNode(3);
+    
+        // Crear conexiones (grafo no dirigido)
+        grafoNoDirigido.addEdge(node5, node7);
+        grafoNoDirigido.addEdge(node5, node3);
+        grafoNoDirigido.addEdge(node5, node9);
+        grafoNoDirigido.addEdge(node7, node9);
+        grafoNoDirigido.addEdge(node3, node11);
+        grafoNoDirigido.addEdge(node3, node9);
+    
+        // Imprimir grafo no dirigido y realizar búsquedas
+        System.out.println("Grafo No Dirigido:");
+        grafoNoDirigido.printGraph();
+        grafoNoDirigido.getBFS(node5);
+        grafoNoDirigido.getDFS(node5);
+    
+        // Crear un grafo dirigido
+        Graph grafoDirigido = new Graph();
+    
+        NodeG node0 = grafoDirigido.addNode(0);
+        NodeG node1 = grafoDirigido.addNode(1);
+        NodeG node2 = grafoDirigido.addNode(2);
+        NodeG node3Dirigido = grafoDirigido.addNode(3);
+        NodeG node4 = grafoDirigido.addNode(4);
+        NodeG node5Dirigido = grafoDirigido.addNode(5);
+    
+        // Crear conexiones (grafo dirigido)
+        grafoDirigido.addEdgeUmi(node0, node3Dirigido);
+        grafoDirigido.addEdgeUmi(node0, node5Dirigido);
+        grafoDirigido.addEdgeUmi(node1, node0);
+        grafoDirigido.addEdgeUmi(node2, node1);
+        grafoDirigido.addEdgeUmi(node3Dirigido, node2);
+        grafoDirigido.addEdgeUmi(node3Dirigido, node4);
+        grafoDirigido.addEdgeUmi(node4, node1);
+    
+        // Imprimir grafo dirigido y realizar búsquedas
+        System.out.println("\nGrafo Dirigido:");
+        grafoDirigido.printGraph();
+        System.out.println("\nDFS (Grafo Dirigido):");
+        grafoDirigido.getDFS(node0);
+        System.out.println("\nBFS (Grafo Dirigido):");
+        grafoDirigido.getBFS(node0);
+    }    
 
 
     public static void runArbolBinario(){
